@@ -1,0 +1,128 @@
+/* General styling for the page */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6f9;
+}
+
+/* Form Wrapper */
+.wrap {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 500px;  /* Fixed width for the form */
+    width: 100%;
+}
+
+/* Card container for the form */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f8f9fa;  /* Light gray background */
+    margin-top: 30px;
+    padding: 20px;
+    width: 100%;
+}
+
+/* Card Header (for title) */
+h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Form fields */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Label styling */
+label {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Button styles */
+.btn {
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin: 10px 0;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+/* Primary button */
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Error messages */
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 0.875rem;
+}
+
+.availability-error {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+
+/* Spacing adjustments */
+br {
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-family: "Poppins", sans-serif; /* Using Poppins font */
+  font-style: normal; /* Ensuring normal style */
+  text-align: center; /* Center-aligning the text */
+  color: red; /* Setting text color to red */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow to the text */
+  font-weight: bold; /* Making the text bold */
+  letter-spacing: 2px; /* Adding some space between the letters */
+  text-transform: uppercase; /* Making the text uppercase for more impact */
+  padding: 10px 0; /* Adding padding for spacing around the text */
+  background: linear-gradient(45deg, #ff6347, #ff4500); /* Gradient background for the text */
+  background-clip: text; /* Applying the gradient only to the text */
+  -webkit-background-clip: text; /* For Safari/Chrome support */
+  color: transparent; /* Make the text transparent to show the gradient */
+  animation: pulse 1.5s ease-in-out infinite; /* Adding a pulse animation */
+}
+
+/* Optional animation to make the text "pulse" */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
