@@ -93,6 +93,12 @@ class StudentController extends Controller
       $img = $request -> file('new_photo');
       $file_name = md5(time().rand()) .'.'. $img -> clientExtension();
       $img -> move(storage_path('app/public/image/students/'), $file_name);
+
+      // Remove old photo from storage
+      if ( $request -> hasFile('old_photo')) { /* check if the old_photo already have been delete menually */
+        unlink('storage/image/students/' . $request -> old_photo);
+      }
+
     } else {
       $file_name = $request -> old_photo;
     }
