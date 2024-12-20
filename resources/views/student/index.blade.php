@@ -10,7 +10,7 @@
 
 @section('main')
 
-  <div class="wrap-table">
+  <div class="wrap-table" style="width: 1370px;">
     <div class="card shadow">
       <div class="card-body">
         <h2 class="text-center mb-4">All Student Information</h2>
@@ -31,10 +31,13 @@
               <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Gender</th>
                 <th>Username</th>
                 <th>Email</th>
                 <th>Education</th>
+                <th>Courses</th>
                 <th>Cell</th>
+                <th>Photo</th>
                 <th width="200">Action</th>
               </tr>
             </thead>
@@ -43,10 +46,21 @@
                 <tr>
                   <td>{{ $loop->index + 1 }}</td>
                   <td>{{ $student->name }}</td>
+                  <td>{{ $student->gender }}</td>
                   <td>{{ $student->username }}</td>
                   <td>{{ $student->email }}</td>
                   <td>{{ $student->education }}</td>
+                  <td>
+                    <ul>
+                      @forelse(json_decode($student->courses) as $item)
+                        <li>{{ $item }}</li>
+                      @empty
+                        <li>No course found</li>
+                      @endforelse
+                    </ul>
+                  </td>
                   <td>{{ $student->cell }}</td>
+                  <td><img src="{{ url('storage/image/students/' . $student->photo) }}" alt="student profile picture" class="img-fluid mx-auto d-block" width="100" /></td>
                   <td>
                     <a class="btn btn-sm btn-info" href="{{ route('student.show', $student->username) }}">View</a>
                     <a class="btn btn-sm btn-warning" href="{{ route('student.edit', $student->username) }}">Edit</a>
@@ -55,7 +69,7 @@
                 </tr>
               @empty
                 <tr>
-                  <td colspan="7" class="text-center">No Data Found in Student Database!</td>
+                  <td colspan="10" class="text-center">No Data Found in Student Database!</td>
                 </tr>
               @endforelse
             </tbody>

@@ -12,6 +12,7 @@
     <div class="card shadow">
       <div class="card-body">
         <h2>Student Profile</h2>
+        <img src="{{ url('storage/image/students/' . $student->photo) }}" alt="student profile picture" class="img-fluid mx-auto d-block" width="100" />
         <h3> {{ $student -> name }}</h3>
         <h4> {{ $student -> email }}</h4>
         <p> {{ $student -> cell }}</p>

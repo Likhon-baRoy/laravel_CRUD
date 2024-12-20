@@ -21,16 +21,29 @@ class StudentController extends Controller
 
   public function store(Request $request) {
 
+    /*     return $request -> all(); */
+
     /* Data Validation */
     $validated = $request -> validate([
       'name'        => 'required',
-      'username'    => 'required|min:4|max:6|unique:students',
+      'username'    => 'required|min:4|max:10|unique:students',
       'email'       => 'required|email|unique:students',
-      'cell'      => ['required', 'starts_with:01,8801,+8801', 'regex:/^\+?[0-9]{11,15}$/', 'unique:students'], // Regex for phone number validation
+      'cell'        => ['required', 'starts_with:01,8801,+8801', 'regex:/^\+?[0-9]{11,15}$/', 'unique:students'], // Regex for phone number validation
+      'age'         => 'required|min:2|max:3',
+      'gender'      => 'required',
     ], [
       'name.required'    => 'নামের ঘরটি পূরণ করুন!',
       'email.email'      => 'আপনার দেওয়া ইমেইলটি সঠিক নয়!',
     ]);
+
+    // Upload photo
+    if ( $request -> hasFile('photo') ) {
+      $img = $request -> file('photo');
+      $file_name = md5(time().rand()) .'.'. $img -> clientExtension();
+      $img -> move(storage_path('app/public/image/students/'), $file_name);
+    } else {
+      $file_name = null;
+    }
 
     /* Data Store */
     Student::create([
@@ -39,6 +52,10 @@ class StudentController extends Controller
       'email'       => $request -> email,
       'cell'        => $request -> cell,
       'education'   => $request -> edu,
+      'age'         => $request -> age,
+      'gender'      => $request -> gender,
+      'photo'       => $file_name,
+      'courses'     => json_encode($request->courses)
     ]);
 
     /* Return back with a message */
@@ -62,7 +79,9 @@ class StudentController extends Controller
 
     // Return the view with the student data
     return view('student.edit', [
-      'edit_data' => $edit_data
+      'edit_data'    => $edit_data,
+      'genders'      => ['Male', 'Female'],
+      'courses'      => ['MERN Stack Devs', 'NFT Devs', 'BlockChain Devs', 'Laravel Devs', 'Django Devs', 'React Devs', 'Native Apps Devs']
     ]);
   }
 
@@ -70,12 +89,23 @@ class StudentController extends Controller
   public function update(Request $request, $username) {
     $update_data = Student::where('username', $username) -> firstOrFail();
 
+    if ( $request -> hasFile('new_photo') ) {
+      $img = $request -> file('new_photo');
+      $file_name = md5(time().rand()) .'.'. $img -> clientExtension();
+      $img -> move(storage_path('app/public/image/students/'), $file_name);
+    } else {
+      $file_name = $request -> old_photo;
+    }
+
     $update_data -> update([
       'name'        => $request -> name,
       'username'    => $request -> username,
       'email'       => $request -> email,
       'cell'        => $request -> cell,
-      'education'   => $request -> edu
+      'education'   => $request -> edu,
+      'gender'      => $request -> gender,
+      'courses'     => json_encode($request->courses),
+      'photo'       => $file_name
     ]);
 
     return back() -> with('success', 'Student Data Updated Successfully.');

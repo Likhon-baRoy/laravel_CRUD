@@ -36,7 +36,7 @@
           </div>
         @endif
 
-        <form method="POST" action="{{ route('student.update', $edit_data -> username) }}" class="mx-auto" style="max-width: 600px;">
+        <form method="POST" enctype="multipart/form-data" action="{{ route('student.update', $edit_data -> username) }}" class="mx-auto" style="max-width: 600px;">
           @csrf
 
           <div class="form-group">
@@ -68,6 +68,42 @@
               <option @if($edit_data -> education == 'Bsc') selected @endif value="Bsc">Bsc</option>
               <option @if($edit_data -> education == 'Msc') selected @endif value="Msc">Msc</option>
             </select>
+          </div>
+
+          <div class="form-group">
+            <label for="gender">Gender:</label> <hr />
+
+            @foreach ($genders as $gender)
+              <label>
+                <input type="radio" id="gender" name="gender" value="{{ $gender }}"
+                       @if(old('gender', $edit_data -> gender) == $gender) checked @endif>
+                {{ $gender }}
+              </label>
+            @endforeach
+          </div>
+
+          <br />
+          <div class="form-group">
+            <label for="courses">Select your courses:</label> <hr />
+            @foreach( $courses as $course )
+              <label>
+                <input
+                  @if( in_array($course, json_decode($edit_data->courses, true)) )
+                    checked
+                  @endif
+                  type="checkbox"
+                  name="courses[]"
+                  value="{{ $course }}"
+                  id="courses">
+                {{ $course }}
+              </label> <br />
+            @endforeach
+          </div>
+
+          <div class="form-group">
+            <input type="file" name="new_photo" value="" />
+            <input type="hidden" name="old_photo" value="{{ $edit_data -> photo }}" /> <hr />
+            <img src="{{ url('storage/image/students/' . $edit_data -> photo) }}" alt="student profile picture" class="img-fluid mx-auto d-block" width="100" />
           </div>
 
           <div class="form-group text-center">

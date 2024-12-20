@@ -36,7 +36,7 @@
           </div>
         @endif
 
-        <form method="POST" action="{{ route('student.store') }}" class="mx-auto" style="max-width: 600px;">
+        <form method="POST" action="{{ route('student.store') }}" enctype="multipart/form-data" class="mx-auto" style="max-width: 300px;">
           @csrf
 
           <div class="form-group">
@@ -53,6 +53,11 @@
             @error('username')
             <p class="text-danger"><i>* Required</i></p>
             @enderror
+          </div>
+
+          <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="text" id="age" name="age" class="form-control" value="{{ old('age') }}">
           </div>
 
           <div class="form-group">
@@ -82,6 +87,63 @@
             </select>
           </div>
 
+          <div class="form-group">
+            <label for="photo">Select a Photo:</label>
+            <input type="file" id="photo" name="photo">
+          </div>
+
+          <div class="form-group">
+            <label for="gender">Gender:</label> <hr />
+            <lebel>
+              <input type="radio" id="gender" name="gender" value="Male">
+              Male
+            </lebel>
+            <lebel>
+              <input type="radio" id="gender" name="gender" value="Female">
+              Female
+            </lebel>
+          </div>
+
+          <br />
+          <div class="form-group">
+            <label for="courses">Select your courses:</label> <hr />
+            <lebel>
+              <input type="checkbox" name="courses[]" value="MERN Stack Devs" id="courses">
+              MERN Stack Devs
+            </lebel>
+            <br />
+            <lebel>
+              <input type="checkbox" name="courses[]" value="NFT Devs" id="courses">
+              NFT Devs
+            </lebel>
+            <br />
+            <lebel>
+              <input type="checkbox" name="courses[]" value="BlockChain Devs" id="courses">
+              BlockChain Devs
+            </lebel>
+            <br />
+            <lebel>
+              <input type="checkbox" name="courses[]" value="Laravel Devs" id="courses">
+              Laravel Devs
+            </lebel>
+            <br />
+            <lebel>
+              <input type="checkbox" name="courses[]" value="Django Devs" id="courses">
+              Django Devs
+            </lebel>
+            <br />
+            <lebel>
+              <input type="checkbox" name="courses[]" value="React Devs" id="courses">
+              React Devs
+            </lebel>
+            <br />
+            <lebel>
+              <input type="checkbox" name="courses[]" value="Native Apps Devs" id="courses">
+              Native Apps Devs
+            </lebel>
+          </div>
+
+          <hr />
           <div class="form-group text-center">
             <button type="submit" class="btn btn-primary">Add Now</button>
           </div>
