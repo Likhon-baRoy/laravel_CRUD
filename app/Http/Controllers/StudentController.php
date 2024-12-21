@@ -55,7 +55,7 @@ class StudentController extends Controller
       'age'         => $request -> age,
       'gender'      => $request -> gender,
       'photo'       => $file_name,
-      'courses'     => json_encode($request->courses)
+      'courses' => json_encode($request->courses ?? [])
     ]);
 
     /* Return back with a message */
@@ -92,7 +92,7 @@ class StudentController extends Controller
     /* Data Validation */
     $validated = $request -> validate([
       'name'        => 'required',
-      'cell' => [
+      'cell'        => [
         'required',
         'starts_with:01,8801,+8801',
         'regex:/^\+?[0-9]{11,15}$/',
@@ -124,11 +124,11 @@ class StudentController extends Controller
       'cell'        => $request -> cell,
       'education'   => $request -> edu,
       'gender'      => $request -> gender,
-      'courses'     => json_encode($request->courses),
+      'courses' => json_encode($request->courses ?? []),
       'photo'       => $file_name
     ]);
 
-    return back() -> with('success', 'Student data updated successfully');
+    return redirect()->route('student.index')->with('success', 'Student data updated successfully!');
   }
 
   /* Student Data Delete */

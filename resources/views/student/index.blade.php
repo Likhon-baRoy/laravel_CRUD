@@ -45,7 +45,7 @@
                   <td>{{ $student->education }}</td>
                   <td>
                     <ul>
-                      @forelse(json_decode($student->courses) as $item)
+                      @forelse(json_decode($student->courses ?? '[]') as $item)
                         <li>{{ $item }}</li>
                       @empty
                         <li>No course found</li>

@@ -67,7 +67,7 @@
             @foreach( $courses as $course )
               <label>
                 <input
-                  @if( in_array($course, json_decode($edit_data->courses, true)) )
+                  @if( in_array($course, json_decode($edit_data->courses ?? '[]', true)) )
                     checked
                   @endif
                   type="checkbox"
