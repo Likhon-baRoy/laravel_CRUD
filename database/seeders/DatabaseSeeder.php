@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Post;
 use App\Models\Staff;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -20,6 +21,8 @@ class DatabaseSeeder extends Seeder
      *   'name' => 'Test User',
      *   'email' => 'test@example.com',
      * ]); */
+
+    Post::factory(10) -> create();
 
     Staff::create([
       'name'    => 'Super Admin',

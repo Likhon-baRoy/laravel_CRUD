@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class StudentController extends Controller
 {
   public function index() {
-    $students = Student::all();
+    $students = Student::paginate(2); // show 2 user data per page
 
     return view('student.index', [
       'students' => $students
@@ -146,5 +146,5 @@ class StudentController extends Controller
 
     /* Return back with a message */
     return back()->with('success', 'Student Data Deleted Successfully!');
-    }
   }
+}

@@ -12,7 +12,7 @@ class StaffController extends Controller
    */
   public function index()
   {
-    $staff = Staff::latest() -> get();
+    $staff = Staff::latest() -> paginate(2); // show 2 user data per page
 
     return view('staff.index', compact('staff'));
     /* return view('staff.index', [

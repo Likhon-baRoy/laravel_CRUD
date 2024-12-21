@@ -32,7 +32,7 @@
             </thead>
             @forelse($staff as $item)
               <tr>
-                <td>{{ $loop->index + 1 }}</td>
+                <td>{{ $item->id }}</td>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->email }}</td>
                 <td>{{ $item->cell }}</td>
@@ -56,6 +56,9 @@
             <tbody>
             </tbody>
           </table>
+
+          {{ $staff -> links() }}
+
         </div>
       </div>
     </div>

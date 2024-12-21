@@ -37,7 +37,7 @@
             <tbody>
               @forelse($students as $student)
                 <tr>
-                  <td>{{ $loop->index + 1 }}</td>
+                  <td>{{ $student->id }}</td>
                   <td>{{ $student->name }}</td>
                   <td>{{ $student->gender }}</td>
                   <td>{{ $student->username }}</td>
@@ -67,6 +67,9 @@
               @endforelse
             </tbody>
           </table>
+
+          {{ $students -> links() }}
+
         </div>
       </div>
     </div>
