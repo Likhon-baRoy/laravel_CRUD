@@ -116,9 +116,11 @@ class StaffController extends Controller
     $update_data -> update([
       'name'    => $request -> name,
       'cell'    => $request -> cell,
+      'photo'   => $file_name
     ]);
 
-    return back() -> with('success', 'Staff data updated successfully');
+    // return back to index page when update is done
+    return redirect()->route('staff.index')->with('success', 'Student data updated successfully!');
   }
 
   /**
@@ -129,11 +131,13 @@ class StaffController extends Controller
     // find the staff record by primary key (id)
     $delete_data = Staff::findOrFail($id);
 
+    // also Delete the user profile photo from the storage if photo exist
+    if ( $delete_data -> photo) {
+      unlink('storage/image/staff/' . $delete_data -> photo);
+    }
+
     // Delete the staff record
     $delete_data -> delete();
-
-    // also Delete the user profile photo from the storage
-    unlink('storage/image/staff/' . $delete_data -> photo);
 
     // now return back with a success message
     return back() -> with('success', 'Staff data deleted successfully');

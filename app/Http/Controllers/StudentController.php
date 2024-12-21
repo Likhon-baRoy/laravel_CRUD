@@ -139,10 +139,12 @@ class StudentController extends Controller
     // Delete the student record
     $delete_data->delete();
 
-    // also Delete the user profile photo from the storage
-    unlink('storage/image/staff/' . $delete_data -> photo);
+    // also Delete the user profile photo from the storage if photo exist
+    if ( $delete_data -> photo) {
+      unlink('storage/image/staff/' . $delete_data -> photo);
+    }
 
     /* Return back with a message */
     return back()->with('success', 'Student Data Deleted Successfully!');
+    }
   }
-}
