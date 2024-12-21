@@ -18,23 +18,7 @@
         <h2 class="text-center mb-4">Add New Student</h2>
         <hr />
 
-        @if ($errors->any())
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ $errors->first() }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        @endif
-
-        @if (Session::has('success'))
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ Session::get('success') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        @endif
+        @include('validate')
 
         <form method="POST" action="{{ route('student.store') }}" enctype="multipart/form-data" class="mx-auto" style="max-width: 300px;">
           @csrf

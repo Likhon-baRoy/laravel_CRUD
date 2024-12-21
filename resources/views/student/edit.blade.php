@@ -18,23 +18,7 @@
         <h2 class="text-center mb-4">Update Student Data</h2>
         <hr />
 
-        @if ($errors->any())
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ $errors->first() }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        @endif
-
-        @if (Session::has('success'))
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ Session::get('success') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        @endif
+        @include('validate')
 
         <form method="POST" enctype="multipart/form-data" action="{{ route('student.update', $edit_data -> username) }}" class="mx-auto" style="max-width: 600px;">
           @csrf
@@ -45,13 +29,8 @@
           </div>
 
           <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" class="form-control" value="{{ $edit_data -> username}}">
-          </div>
-
-          <div class="form-group">
-            <label for="email">Email:</label>
-            <input id="email" name="email" class="form-control" value="{{ $edit_data -> email}}">
+            <label for="age">Age:</label>
+            <input type="text" id="age" name="age" class="form-control" value="{{ $edit_data -> age}}">
           </div>
 
           <div class="form-group">

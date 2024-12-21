@@ -42,7 +42,7 @@ class StudentController extends Controller
       $file_name = md5(time().rand()) .'.'. $img -> clientExtension();
       $img -> move(storage_path('app/public/image/students/'), $file_name);
     } else {
-      $file_name = null;
+      $file_name = 'avatar.png';
     }
 
     /* Data Store */
@@ -89,13 +89,29 @@ class StudentController extends Controller
   public function update(Request $request, $username) {
     $update_data = Student::where('username', $username) -> firstOrFail();
 
+    /* Data Validation */
+    $validated = $request -> validate([
+      'name'        => 'required',
+      'cell' => [
+        'required',
+        'starts_with:01,8801,+8801',
+        'regex:/^\+?[0-9]{11,15}$/',
+        'unique:students,cell,' . $update_data->id, // Exclude current user's cell from uniqueness check
+      ],
+      'age'         => 'required|min:2|max:3',
+      'gender'      => 'required',
+    ], [
+      'name.required'    => 'নামের ঘরটি পূরণ করুন!',
+    ]);
+
+    // check for new photo
     if ( $request -> hasFile('new_photo') ) {
-      $img = $request -> file('new_photo');
-      $file_name = md5(time().rand()) .'.'. $img -> clientExtension();
-      $img -> move(storage_path('app/public/image/students/'), $file_name);
+      $img = $request -> file('new_photo'); // store the photo
+      $file_name = md5(time().rand()) .'.'. $img -> clientExtension(); // generate a name for photo
+      $img -> move(storage_path('app/public/image/students/'), $file_name); // add photo in storage with the generated name
 
       // Remove old photo from storage
-      if ( $request -> hasFile('old_photo')) { /* check if the old_photo already have been delete menually */
+      if ( $request -> hasFile('old_photo')) { /* check if the old_photo already have been delete menually to handle the Error */
         unlink('storage/image/students/' . $request -> old_photo);
       }
 
@@ -105,8 +121,6 @@ class StudentController extends Controller
 
     $update_data -> update([
       'name'        => $request -> name,
-      'username'    => $request -> username,
-      'email'       => $request -> email,
       'cell'        => $request -> cell,
       'education'   => $request -> edu,
       'gender'      => $request -> gender,
@@ -114,16 +128,19 @@ class StudentController extends Controller
       'photo'       => $file_name
     ]);
 
-    return back() -> with('success', 'Student Data Updated Successfully.');
+    return back() -> with('success', 'Student data updated successfully');
   }
 
   /* Student Data Delete */
   public function destroy($id) {
-    // findOrFail(),find the student record by primary key (id)
+    // find the student record by primary key (id)
     $delete_data = Student::findOrFail($id);
 
     // Delete the student record
     $delete_data->delete();
+
+    // also Delete the user profile photo from the storage
+    unlink('storage/image/staff/' . $delete_data -> photo);
 
     /* Return back with a message */
     return back()->with('success', 'Student Data Deleted Successfully!');

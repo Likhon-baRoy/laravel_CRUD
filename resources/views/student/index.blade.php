@@ -16,14 +16,7 @@
         <h2 class="text-center mb-4">All Student Information</h2>
         <hr />
 
-        @if (Session::has('success'))
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ Session::get('success') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        @endif
+        @include('validate');
 
         <div class="table-responsive">
           <table class="table table-striped">
